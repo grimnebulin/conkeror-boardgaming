@@ -1,4 +1,4 @@
-var [is_boardgaming_uri, BOARDGAMING_GAMES_URL] = (function () {
+(function () {
 
     // function open_boardgaming_buffers(buffer) {
     //     var $ = $$(buffer);
@@ -80,7 +80,7 @@ var [is_boardgaming_uri, BOARDGAMING_GAMES_URL] = (function () {
 
     function bgo_buffer_loaded(buffer) {
 
-        const uri  = buffer.current_uri;
+        const uri = buffer.current_uri;
 
         if (!is_boardgaming_uri(uri))
             return;
@@ -121,11 +121,6 @@ var [is_boardgaming_uri, BOARDGAMING_GAMES_URL] = (function () {
 
     }
 
-    add_hook("buffer_dom_content_loaded_hook", bgo_buffer_loaded);
-
-    return [
-        is_boardgaming_uri,
-        "http://" + BOARDGAMING_HOST + "/index.php?cnt=2"
-    ];
+    add_dom_content_loaded_hook(bgo_buffer_loaded);
 
 })();
