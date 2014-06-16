@@ -1,3 +1,22 @@
+//
+//  A page mode for the web site boardgaming-online.com, which offers
+//  a web-based implementation of the excellent board game "Through
+//  the Ages: A Story of Civilization."
+//
+//  http://www.boardgamegeek.com/boardgame/25613/through-the-ages-a-story-of-civilization
+//
+//  The following key commands are provided:
+//
+//    C-1 through C-4: Go to the first (second, ...) player's tab.
+//    C-c C-j: Go to the Journal tab.
+//    C-c C-c: Submit the current page.
+//    C-c C-k: Reset the page.
+//
+//  In addition, all selectable actions from the actions drop-down are
+//  added to the page as hyperlinks, which can be more convenient to
+//  activate with Conkeror's follow command than by choosing them from
+//  the drop-down.
+
 (function () {
 
     // function open_boardgaming_buffers(buffer) {
