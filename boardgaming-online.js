@@ -41,7 +41,8 @@
     for (var i = 1; i <= 4; ++i)
         define_key(bgo_keymap, "C-" + i, bgo_goto_player(i));
 
-    define_key(bgo_keymap, "C-j", bgo_goto_journal);
+    define_key(bgo_keymap, "C-j", bgo_goto("Journal"));
+    define_key(bgo_keymap, "C-k", bgo_goto("Chat"));
     define_key(bgo_keymap, "C-c C-c", bgo_done);
     define_key(bgo_keymap, "C-c C-k", bgo_reset);
 
@@ -58,19 +59,21 @@
 
     page_mode_activate(bgo_mode);
 
+    function bgo_goto(label) {
+        return function (I) {
+            const $ = $$(I);
+            if ($("li").filter(function () { return $(this).text() == label })
+                       .closest("td").clickthis().length == 0)
+                I.minibuffer.message(label + " not found!");
+        };
+    }
+
     function bgo_goto_player(n) {
         const selector = "li#texteOnglet" + n;
         return function (I) {
             if ($$(I)(selector).closest("td").clickthis().length == 0)
                 I.minibuffer.message("Player #" + n + " not found!");
         };
-    }
-
-    function bgo_goto_journal(I) {
-        const $ = $$(I);
-        function is_journal() { return $(this).text() == "Journal" }
-        if ($("li").filter(is_journal).closest("td").clickthis().length == 0)
-            I.minibuffer.message("Journal not found!");
     }
 
     function bgo_done(I) {
