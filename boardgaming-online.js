@@ -129,7 +129,7 @@
                 if (seen[this.label]) return;
                 seen[this.label] = true;
                 const value = $(this).val();
-                const a = $("<a href='#'/>")
+                const a = $("<a href='#' style='color: black'/>")
                     .text(this.label)
                     .click(function () {
                         select.val(value)[0].onchange();
