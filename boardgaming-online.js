@@ -124,12 +124,12 @@
         const confirm = $("input#confirmEndTurn");
         const dot     = $.document.createTextNode(" \u2e31 ");
 
-        $("<div style='font-size: x-small; width: 800px'/>").append(
+        $("<div style='font-size: x-small; width: 800px; color: black'/>").append(
             select.find("option[value!='0']").map(let (seen = {}) function (i) {
                 if (seen[this.label]) return;
                 seen[this.label] = true;
                 const value = $(this).val();
-                const a = $("<a href='#' style='color: black'/>")
+                const a = $("<a href='#' style='color: inherit'/>")
                     .text(this.label)
                     .click(function () {
                         select.val(value)[0].onchange();
