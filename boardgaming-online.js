@@ -1,3 +1,5 @@
+"use strict";
+
 //
 //  A page mode for the web site boardgaming-online.com, which offers
 //  a web-based implementation of the excellent board game "Through
@@ -48,14 +50,15 @@
 
     let (
         [enable, disable] = setup_mode({ normal: bgo_keymap })
-    )
-    define_page_mode(
-        "bgo-mode",
-        /^http:\/\/boardgaming-online\.com/,
-        enable,
-        disable,
-        $display_name = "BGO"
-    );
+    ) {
+        define_page_mode(
+            "bgo-mode",
+                /^http:\/\/boardgaming-online\.com/,
+            enable,
+            disable,
+            $display_name = "BGO"
+        );
+    }
 
     page_mode_activate(bgo_mode);
 
