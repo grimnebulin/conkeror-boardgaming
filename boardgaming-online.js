@@ -48,9 +48,8 @@
     define_key(bgo_keymap, "C-c C-c", bgo_done);
     define_key(bgo_keymap, "C-c C-k", bgo_reset);
 
-    let (
-        [enable, disable] = setup_mode({ normal: bgo_keymap })
-    ) {
+    {
+        let [enable, disable] = setup_mode({ normal: bgo_keymap });
         define_page_mode(
             "bgo-mode",
                 /^http:\/\/boardgaming-online\.com/,
@@ -65,8 +64,8 @@
     function bgo_goto(label) {
         return function (I) {
             const $ = $$(I);
-            if ($("li").filter(function () { return $(this).text() == label })
-                       .closest("td").clickthis().length == 0)
+            if ($("li").filter(function () { return $(this).text() === label })
+                       .closest("td, div[onclick]").clickthis().length == 0)
                 I.minibuffer.message(label + " not found!");
         };
     }
@@ -74,7 +73,7 @@
     function bgo_goto_player(n) {
         const selector = "li#texteOnglet" + n;
         return function (I) {
-            if ($$(I)(selector).closest("td").clickthis().length == 0)
+            if ($$(I)(selector).closest("td, div[onclick]").clickthis().length == 0)
                 I.minibuffer.message("Player #" + n + " not found!");
         };
     }
@@ -103,6 +102,8 @@
         "div#contenu > table:eq(1) > tbody > tr > " +
         "td.td_bg2 > table:eq(0) > tbody:last";
 
+    const BGO_UL = "#contenu > ul#carteJoueur";
+
     function bgo_buffer_loaded(buffer) {
 
         const uri = buffer.current_uri;
@@ -127,7 +128,7 @@
         const confirm = $("input#confirmEndTurn");
         const dot     = $.document.createTextNode(" \u2e31 ");
 
-        $("<div style='font-size: x-small; width: 800px; color: black'/>").append(
+        var div = $("<div style='font-size: x-small; color: black'/>").append(
             select.find("option[value!='0']").map(let (seen = {}) function (i) {
                 if (seen[this.label]) return;
                 seen[this.label] = true;
@@ -142,7 +143,14 @@
                     })[0];
                 return i == 0 ? a : [ dot.cloneNode(), a ];
             })
-        ).appendTo($("<td/>").appendTo($("<tr/>").appendTo(BGO_TABLE)));
+        );
+
+        var table = $(BGO_TABLE);
+        if (table.length > 0) {
+            table.append($("<tr/>").append($("<td/>").append(div.css("width", "800px"))));
+        } else {
+            $(BGO_UL).after(div);
+        }
 
     }
 
