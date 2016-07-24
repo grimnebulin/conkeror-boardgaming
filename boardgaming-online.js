@@ -170,11 +170,6 @@
             $(BGO_UL).after(div);
         }
 
-        $("td > form").each(function () {
-            const form = this;
-            $(this.parentNode).nextAll().find("a[onclick]").click(function () { form.submit() });
-        })
-
     }
 
     add_dom_content_loaded_hook(bgo_buffer_loaded);
