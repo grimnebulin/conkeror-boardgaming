@@ -28,7 +28,7 @@
 //  The following key commands are provided:
 //
 //    C-1 through C-4: Go to the first (second, ...) player's tab.
-//    C-c C-j: Go to the Journal tab.
+//    C-j: Go to the Journal tab.
 //    C-c C-c: Submit the current page.
 //    C-c C-k: Reset the page.
 //
@@ -38,21 +38,6 @@
 //  the drop-down.
 
 (function () {
-
-    // function open_boardgaming_buffers(buffer) {
-    //     var $ = $$(buffer);
-    //     $("td.tabPartiesFond2 a").map(let (seen = {}) function (i) {
-    //         if (!seen[this.href]) {
-    //             seen[this.href] = true;
-    //             return {
-    //                 target: i == 0 ? OPEN_CURRENT_BUFFER : OPEN_NEW_BUFFER,
-    //                 href: this.href
-    //             };
-    //         }
-    //     }).get().reverse().forEach(function (game) {
-    //         browser_object_follow(buffer, game.target, game.href);
-    //     });
-    // }
 
     const BOARDGAMING_HOST = "boardgaming-online.com";
 
@@ -70,7 +55,7 @@
         let [enable, disable] = setup_mode({ normal: bgo_keymap });
         define_page_mode(
             "bgo-mode",
-                /^http:\/\/boardgaming-online\.com/,
+            /^http:\/\/boardgaming-online\.com/,
             enable,
             disable,
             $display_name = "BGO"
