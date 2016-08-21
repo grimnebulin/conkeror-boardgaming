@@ -68,7 +68,7 @@
         return function (I) {
             const $ = $$(I);
             if ($("li").filter(function () { return $(this).text() === label })
-                       .closest("td, div[onclick]").clickthis().length == 0)
+                       .closest("td, div[onclick]").clickthis().length === 0)
                 I.minibuffer.message(label + " not found!");
         };
     }
@@ -76,13 +76,13 @@
     function bgo_goto_player(n) {
         const selector = "li#texteOnglet" + n;
         return function (I) {
-            if ($$(I)(selector).closest("td, div[onclick]").clickthis().length == 0)
+            if ($$(I)(selector).closest("td, div[onclick]").clickthis().length === 0)
                 I.minibuffer.message("Player #" + n + " not found!");
         };
     }
 
     function bgo_done(I) {
-        if ($$(I)("input#boutonGO").clickthis().length == 0)
+        if ($$(I)("input#boutonGO").clickthis().length === 0)
             I.minibuffer.message("GO button not found!");
     }
 
@@ -129,10 +129,11 @@
 
         const select  = $("select#action");
         const confirm = $("input#confirmEndTurn");
-        const dot     = $.document.createTextNode(" \u2e31 ");
+        const dot     = () => $.document.createTextNode(" \u2e31 ");
+        const seen    = { };
 
-        var div = $("<div style='font-size: x-small; color: black'/>").append(
-            select.find("option[value!='0']").map(let (seen = {}) function (i) {
+        var div = $("<div style='font-size: x-small; color: black; width: 800px'/>").append(
+            select.find("option[value!='0']").map(function (i) {
                 if (seen[this.label]) return;
                 seen[this.label] = true;
                 const value = $(this).val();
@@ -140,17 +141,17 @@
                     .text(this.label)
                     .click(function () {
                         select.val(value)[0].onchange();
-                        if ($(this).text() == "End Action Phase")
+                        if ($(this).text() === "End Action Phase")
                             confirm.prop("checked", true);
                         return false;
                     })[0];
-                return i == 0 ? a : [ dot.cloneNode(), a ];
+                return i === 0 ? a : [ dot(), a ];
             })
         );
 
         var table = $(BGO_TABLE);
         if (table.length > 0) {
-            table.append($("<tr/>").append($("<td/>").append(div.css("width", "800px"))));
+            table.append($("<tr/>").append($("<td/>").append(div)));
         } else {
             $(BGO_UL).after(div);
         }
