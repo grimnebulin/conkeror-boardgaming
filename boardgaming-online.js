@@ -67,7 +67,7 @@
     function bgo_goto(label) {
         return function (I) {
             const $ = $$(I);
-            if ($("li").filter(function () { return $(this).text() === label })
+            if ($("li").filter(function () { return $(this).text().startsWith(label) })
                        .closest("td, div[onclick]").clickthis().length === 0)
                 I.minibuffer.message(label + " not found!");
         };
