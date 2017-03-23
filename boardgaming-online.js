@@ -67,23 +67,29 @@
     function bgo_goto(label) {
         return function (I) {
             const $ = $$(I);
-            if ($("li").filter(function () { return $(this).text().startsWith(label) })
-                       .closest("td, div[onclick]").clickthis().length === 0)
+            const li = $("li").filter(function () {
+                return $(this).text().startsWith(label);
+            }).closest("td, div[onclick]");
+            if (li.clickthis().length === 0) {
                 I.minibuffer.message(label + " not found!");
+            }
         };
     }
 
     function bgo_goto_player(n) {
         const selector = "li#texteOnglet" + n;
         return function (I) {
-            if ($$(I)(selector).closest("td, div[onclick]").clickthis().length === 0)
+            const elem = $$(I)(selector).closest("td, div[onclick]");
+            if (elem.clickthis().length === 0) {
                 I.minibuffer.message("Player #" + n + " not found!");
+            }
         };
     }
 
     function bgo_done(I) {
-        if ($$(I)("input#boutonGO").clickthis().length === 0)
+        if ($$(I)("input#boutonGO").clickthis().length === 0) {
             I.minibuffer.message("GO button not found!");
+        }
     }
 
     const RESET_OPTION =
