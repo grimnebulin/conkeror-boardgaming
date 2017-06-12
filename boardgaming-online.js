@@ -137,12 +137,12 @@
         const select  = $("select#action");
         const confirm = $("input#confirmEndTurn");
         const dot     = () => $.document.createTextNode(" \u2e31 ");
-        const seen    = new Map;
+        const seen    = new Set;
 
         var div = $("<div style='font-size: x-small; color: black; width: 800px'/>").append(
             select.find("option[value!='0']").map(function (i) {
                 if (seen.has(this.label)) return;
-                seen.set(this.label, true);
+                seen.add(this.label);
                 const value = $(this).val();
                 const a = $("<a href='#' style='color: inherit'/>")
                     .text(this.label)
