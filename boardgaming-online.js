@@ -48,6 +48,7 @@
 
     define_key(bgo_keymap, "C-j", bgo_goto("Journal"));
     define_key(bgo_keymap, "C-k", bgo_goto("Chat"));
+    define_key(bgo_keymap, "C-m", bgo_goto("Sean"));
     define_key(bgo_keymap, "C-c C-c", bgo_done);
     define_key(bgo_keymap, "C-c C-k", bgo_reset);
 
